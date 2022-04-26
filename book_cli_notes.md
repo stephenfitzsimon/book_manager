@@ -1,5 +1,10 @@
 # Notes for book cli ap
-- Goal of ap: build an ap that can manage a personal library and hold notes the books
+- Goal of ap: build an ap that can manage a personal library and hold notes on the books
+- Learning goals:
+    - be able to implement a CLI app with multiple commands
+    - save data
+    - allow for user configuration
+    - learn argparse, sql integration, and file access
 - implement the following:
     - argparse
     - a relational database to manage saved books
