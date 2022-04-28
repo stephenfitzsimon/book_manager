@@ -1,4 +1,4 @@
-# book_cli.py
+# book_manager.py
 # stephen fitzsimon
 # a CLI program for keeping a personal library
 
