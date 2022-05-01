@@ -14,6 +14,7 @@
         - maybe add flags for inclusion
     - GUI version
     - browser app version
+    - use worldcat or google books api to populate information
 
 ## 25 April 2022
 - work on the following functionality

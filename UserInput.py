@@ -2,6 +2,7 @@
 # class manages making parsers with argparse and returns them to the program class
 
 import argparse
+import book_manager
 
 class UserInput():
 
@@ -14,7 +15,14 @@ class UserInput():
             help = "sub-command help"
         )
         self.add_cmd_parser = self._make_add_cmd_parser()
+        self.print_cmd_parser = self._make_print_cmd_parser()
         self.user_input = self._get_user_input()
+    
+    def __call__(self):
+        return self.user_input
+    
+    def get_input(self):
+        return self.user_input
 
     def _get_user_input(self):
         '''gets and returns user input'''
@@ -32,7 +40,6 @@ class UserInput():
             '--title',
             nargs = '+',
             type = str,
-            action = 'append',
             help = 'book title'
         )
         add_cmd.add_argument(
@@ -40,7 +47,6 @@ class UserInput():
             '--author',
             nargs = '+',
             type = str,
-            action = 'append',
             help = 'book author'
         )
         add_cmd.add_argument(
@@ -48,12 +54,29 @@ class UserInput():
             '--genre',
             nargs = '+',
             type = str,
-            action = 'append',
             help = 'book genre'
         )
+        add_cmd.set_defaults(func=book_manager.add_book)
         return add_cmd
 
     def _make_print_cmd_parser(self):
         '''makes the print command which prints all the books
         in the file'''
-        return None
+        print_cmd = self.subparsers.add_parser(
+            'print',
+            help = 'print out all books entered into the program'
+        )
+        print_cmd.add_argument(
+            '-l',
+            '--list',
+            type=int,
+            nargs = '?',
+            default=5,
+            help = 'number of records to print'
+        )
+        print_cmd.set_defaults(func=book_manager.print_books)
+        return print_cmd
+
+if __name__=='__main__':
+    user_input = UserInput()
+    print(user_input.user_input)

@@ -4,74 +4,40 @@
 
 import argparse
 import json
-import json_dao
+from json_dao import DAO
+import userinput
+import book
 
-BOOKS = json_dao.DAO()
+DAO_OBJECT = DAO()
+print(f'loaded: {DAO_OBJECT.books_list}')
 
 def main():
     '''handles the control flow of the program'''
-    user_input = read_user_input()
-    print(user_input)
-    book = new_book(user_input.title, user_input.author, user_input.genre)
-    print(BOOKS.add_book(book))
+    input_obj = userinput.UserInput()
+    user_in = input_obj.get_input()
+    # print(user_in)
+    input_obj.user_input.func(user_in)
 
-def read_user_input():
-    '''handles user CLI input'''
-    parser = argparse.ArgumentParser(
-        description = 'manages a personal library'
-    )
-    parser.add_argument(
-        '-t',
-        '--title',
-        nargs = '+',
-        type = str,
-        action = 'append',
-        help = 'book title'
-    )
-    parser.add_argument(
-        '-a',
-        '--author',
-        nargs = '+',
-        type = str,
-        action = 'append',
-        help = 'book author'
-    )
-    parser.add_argument(
-        '-g',
-        '--genre',
-        nargs = '+',
-        type = str,
-        action = 'append',
-        help = 'book genre'
-    )
-    return parser.parse_args()
-
-def new_book(title, author, genre):
+def add_book(user_in):
     '''add a book to the database
         Args:
-            title (str) = book title
-            author (str) = book author
-            genre (str) = book genre
+            user_in (namespace obj) = user arguments from CLI input
     '''
-    book = {
-        'title' : ' '.join(title[0]),
-        'first_name' : author[0],
-        'last_name' : author[0],
-        'genre' : ' '.join(genre[0])
-    }
-    return book 
+    book_obj = book.Book(user_in)
+    DAO_OBJECT.add_book(book_obj)
 
-def return_book_string(book):
-    '''Returns a formatted string for a book
-        Args:
-            book (book) = a book dictionary
-    '''
-    book_string = f"{book['title']} \t {book['last_name']}, {book['first_name']} \t {book['genre']}"
-    return book_string
+def print_books(user_in):
+    book_list = DAO_OBJECT.get_books_list()
+    if type(book_list) == None:
+        print('There are no books on file')
+    elif user_in.list < len(book_list):
+        for i in range(user_in.list):
+            print(book_list[i].book_string)
+    else:
+        for i in range(len(book_list)):
+            print(book_list[i].book_string)
 
-def print_books():
-    for book in BOOKS:
-        print(return_book_string(book))
 
 if __name__=='__main__':
     main()
+    pass
