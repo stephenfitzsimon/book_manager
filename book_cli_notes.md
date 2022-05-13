@@ -30,3 +30,17 @@
     - make subparsers for add and print commands
         - add = add a book object to the save file
         - print = print all books in current save file
+
+## 13 May 2022
+- made subparsers for add and print commands
+- added a delete function to the DAO csv object
+    - need to implement this in the cli class
+- changed the save file to csv.  JSON was giving problem.  CSV is more straighforward.
+    - pros for csv : csv module made it a lot easier to manage the file, csv is less space
+    - cons for csv : limited information in it at this point
+- notes: make lots more commments so it is easier to follow what going on in the code after a break from the project!
+- next goals:
+    - implement a delete command in the cli class
+    - implement an update command in the cli class
+    - both of these will require finding an object in the list
+        - probably will need to override the __eq__ and __ne__ class functions
