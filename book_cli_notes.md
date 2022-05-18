@@ -44,3 +44,6 @@
     - implement an update command in the cli class
     - both of these will require finding an object in the list
         - probably will need to override the __eq__ and __ne__ class functions
+
+## 18 May 2022
+- added __eq__ function to Book class

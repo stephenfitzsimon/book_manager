@@ -57,6 +57,11 @@ class DAO:
         self.book_list.remove(book)
         self.save_book_file()
 
+    def delete_all(self):
+        '''deletes all books present in the csv file'''
+        self.book_list = []
+        self.save_book_file()
+
     def update_book(self, book_old, book_new):
         pass 
 

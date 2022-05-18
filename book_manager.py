@@ -21,7 +21,7 @@ def add_book(user_in):
         Args:
             user_in (namespace obj) = user arguments from CLI input
     '''
-    book_obj = book.Book(''.join(user_in.title), ''.join(user_in.author), ''.join(user_in.genre))
+    book_obj = book.Book(' '.join(user_in.title), ' '.join(user_in.author), ' '.join(user_in.genre))
     DAO_OBJECT.add_book(book_obj)
 
 def print_books(user_in):
@@ -34,6 +34,12 @@ def print_books(user_in):
     else:
         for i in range(len(book_list)):
             print(book_list[i].get_book_string())
+
+def delete_book(user_in):
+    if user_in.removeall:
+        DAO_OBJECT.delete_all()
+    else:
+        pass
 
 
 if __name__=='__main__':

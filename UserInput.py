@@ -16,6 +16,7 @@ class UserInput():
         )
         self.add_cmd_parser = self._make_add_cmd_parser()
         self.print_cmd_parser = self._make_print_cmd_parser()
+        self.delete_cmd_parser = self._make_delete_cmd_parser()
         self.user_input = self._get_user_input()
     
     def __call__(self):
@@ -76,6 +77,22 @@ class UserInput():
         )
         print_cmd.set_defaults(func=book_manager.print_books)
         return print_cmd
+    
+    def _make_delete_cmd_parser(self):
+        delete_cmd = self.subparsers.add_parser(
+            'delete',
+            help = 'delete a book from the save file'
+        )
+        #make a option to delete all in the file
+        group_delete_all = delete_cmd.add_mutually_exclusive_group()
+        group_delete_all.add_argument(
+            '-R',
+            '--removeall',
+            action = 'store_true',
+            help = 'removes all the books on file'
+        )
+        delete_cmd.set_defaults(func=book_manager.delete_book)
+        return delete_cmd
 
 if __name__=='__main__':
     user_input = UserInput()
